@@ -7,28 +7,24 @@
 /*******************************************************/
 // setup()
 /*******************************************************/
-
+var score= 0;
 function setup() {
 	console.log("setup: ");
-	cnv = new Canvas(windowWidth, windowHeight);
-	rec = new Sprite(50,100,100,50, 'd');
-	rec.color = '#007bff';
-	rec.rotationSpeed = 2;
-
+	cnv = new Canvas(((windowWidth/6)*4), windowHeight);
+	timer= new Sprite(0,0,10,10)
+    timer.color= 'ccc';
+    timer.vel.y=1;
 }
 	
 /*******************************************************/
 // draw()
 /*******************************************************/
 function draw() {
-	background('ccc'); 
+	background('#007bff'); 
 	
+    score= timer.position.y/2;
+    text(score, 50, 50)
 
-if (mouse.pressing()) {
-
-rec.moveTowards(mouseX, mouseY, 0.01);
-
-}
 }
 
 /*******************************************************/
