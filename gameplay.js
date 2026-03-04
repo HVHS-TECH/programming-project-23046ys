@@ -22,7 +22,7 @@ function setup() {
 function draw() {
 	background('#007bff'); 
 	
-    score= timer.position.y/2;
+    score= Math.floor(timer.position.y/50);
     text(score, 50, 50)
 
 }
