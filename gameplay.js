@@ -15,6 +15,8 @@ var enemyStage= 1;
 
 let doorClosed= false;
 
+let enemySpeedArray= [1,7];
+
 
 function setup() {
 	console.log("setup: ");
@@ -23,26 +25,35 @@ function setup() {
     timer.color= 'ccc';
     timer.vel.y= TIMER_SPEED;
     enemyMovement= new Sprite(0,0,10,10)
-    enemyMovement.vel.x= 1;
+    enemyMovement.vel.x= 0.5;
 }
 
-
+function setEnemySpeed(){
+    if(enemyStage==3){
+        enemyMovement.vel.x= 1;
+    }else{
+        enemyMovement.vel.x= random(enemySpeedArray[1],enemySpeedArray[2]) / 10;
+    }
+}
 
 function enemyMove(){
 
     if(enemyMovement.position.x>=100){
+
+        enemyMovement.position.x= 0;
+
         if(enemyStage==3){
             console.log("Enemy Attacking");
-             if(doorclosed== true){                
-                enemyMovement.position.x= 0;
+             if(doorClosed== true){                
                 enemyStage= 1;
+                setEnemySpeed()
              }else{
                 endGame()
              }
 
        }else{
             enemyStage= enemyStage+1;
-            enemyMovement.position.x= 0;
+            setEnemySpeed()
        }
 
     }
