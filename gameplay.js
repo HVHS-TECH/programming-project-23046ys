@@ -4,20 +4,31 @@
 /// Written by 
 /*******************************************************/
 	
-/*******************************************************/
-// setup()
-/*******************************************************/
+//Constants
 
 const TIMER_SPEED= 1/50;
 
-var score= 0;
-var battery= 100;
-var enemyStage= 1;
+//Booleans
 
 let doorClosed= false;
 let gameEnded= false;
 
-let enemySpeedArray= [1,7];
+//Arrays
+
+let enemySpeedArray= [0.5,5];
+
+//Variables
+
+var score= 0;
+var battery= 100;
+var enemyStage= 1;
+var enemyAttackSpeed= 1;
+
+/*******************************************************/
+// setup()
+/*******************************************************/
+
+
 
 
 function setup() {
@@ -34,13 +45,28 @@ function setup() {
     enemyMovement.vel.x= 0.5;
 }
 
+//Enemy Speed randomiser
+
 function setEnemySpeed(){
+    
+    if(score>=100){
+        if(score<=250){
+            enemySpeedArray[0]= 250/100;
+            enemySpeedArray[1]= 250/50;
+        }else{
+            enemySpeedArray[0]= score/100;
+            enemySpeedArray[1]= score/50;
+        }
+    }
+
     if(enemyStage==3){
-        enemyMovement.vel.x= 1;
+        enemyMovement.vel.x= enemyAttackSpeed;
     }else{
-        enemyMovement.vel.x= random(enemySpeedArray[1],enemySpeedArray[2]) / 10;
+        enemyMovement.vel.x= random(enemySpeedArray[0],enemySpeedArray[1]) / 10;
     }
 }
+
+//Battery Drain function
 
 function drainBattery(){
 
@@ -57,6 +83,14 @@ function drainBattery(){
     }
 
 }
+
+//Gain Battery Function
+
+function gainBattery(){
+    
+}
+
+//Enemy Movement
 
 function enemyMove(){
 
@@ -81,7 +115,7 @@ function enemyMove(){
     }
 }
 
-
+//Door Control
 
 function doorControl(){
 
@@ -97,7 +131,7 @@ function doorControl(){
 
 }
 
-
+//End Game
 
 function endGame(){
     timer.vel.y=0;
@@ -120,6 +154,8 @@ function draw() {
         text("Power="+ battery, 50, 75);
         text(enemyStage, 100, 100);
         text(doorClosed, 200, 200);
+        text(enemySpeedArray[1],200,250);
+        text(random(0.5,5),250,250)
 
         drainBattery()
 
