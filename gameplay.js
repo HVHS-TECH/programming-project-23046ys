@@ -11,6 +11,7 @@ const TIMER_SPEED= 1/50;
 //Booleans
 
 let doorClosed= false;
+let gainingBattery= false;
 let gameEnded= false;
 
 //Arrays
@@ -23,6 +24,7 @@ var score= 0;
 var battery= 100;
 var enemyStage= 1;
 var enemyAttackSpeed= 1;
+var enemyLeaveSpeed= 1;
 
 /*******************************************************/
 // setup()
@@ -33,7 +35,7 @@ var enemyAttackSpeed= 1;
 
 function setup() {
 	console.log("setup: ");
-	cnv = new Canvas(((windowWidth/6)*4), windowHeight);
+	cnv = new Canvas(windowWidth, windowHeight);
 
 	timer= new Sprite(-20,0,10,10);
     timer.vel.y= TIMER_SPEED;
@@ -60,7 +62,13 @@ function setEnemySpeed(){
     }
 
     if(enemyStage==3){
+
+        if(doorClosed==true){
+            enemyMovement.vel.x= enemyLeaveSpeed;
+        }else{
         enemyMovement.vel.x= enemyAttackSpeed;
+        }
+        
     }else{
         enemyMovement.vel.x= random(enemySpeedArray[0],enemySpeedArray[1]) / 10;
     }
@@ -87,7 +95,15 @@ function drainBattery(){
 //Gain Battery Function
 
 function gainBattery(){
-    
+    if(doorClosed == true){
+        gainingBattery= false;
+    }else{
+        if(kb.pressed('down')){
+            gainingBattery= true;
+        }else if(kb.pressed('up')){
+            gainingBattery= false;
+        }
+    }
 }
 
 //Enemy Movement
@@ -120,10 +136,14 @@ function enemyMove(){
 function doorControl(){
 
     if(battery>=1){
-        if(kb.pressing('spacebar')){
-        doorClosed= true;
+        if(gainingBattery == true){
+            doorClosed == false
         }else{
-        doorClosed= false;
+            if(kb.pressing('spacebar')){
+            doorClosed= true;
+            }else{
+            doorClosed= false;
+         }
         }
     }else{
         doorClosed=false;
@@ -154,8 +174,6 @@ function draw() {
         text("Power="+ battery, 50, 75);
         text(enemyStage, 100, 100);
         text(doorClosed, 200, 200);
-        text(enemySpeedArray[1],200,250);
-        text(random(0.5,5),250,250)
 
         drainBattery()
 
@@ -163,6 +181,9 @@ function draw() {
 
         enemyMove()
     
+    }else{
+        text("Game Over", windowWidth/2,windowHeight/2);
+        text("Score="+score, windowWidth/2,windowHeight/2 + 50);
     }
 
 
