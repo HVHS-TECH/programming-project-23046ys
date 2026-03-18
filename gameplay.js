@@ -48,10 +48,10 @@ function setup() {
     enemyMovement.vel.x = 0.5;
 
     stunCharging = new Sprite(0, -20, 10, 10)
-    stunCharging.vel.x = 0.05;
+    stunCharging.vel.x = 0.01;
 }
 
-//Enemy Speed randomiser
+//Enemy
 
 function setEnemySpeed() {
 
@@ -78,7 +78,32 @@ function setEnemySpeed() {
     }
 }
 
-//Battery Drain function
+
+
+function enemyMove() {
+
+    if (enemyMovement.position.x >= 100) {
+
+        enemyMovement.position.x = 0;
+
+        if (enemyStage == 3) {
+            console.log("Enemy Attacking");
+            if (doorClosed == true) {
+                enemyStage = 1;
+                setEnemySpeed()
+            } else {
+                endGame()
+            }
+
+        } else {
+            enemyStage = enemyStage + 1;
+            setEnemySpeed()
+        }
+
+    }
+}
+
+//Battery
 
 function drainBattery() {
 
@@ -98,7 +123,6 @@ function drainBattery() {
 
 }
 
-//Gain Battery Function
 
 function gainBattery() {
     if (score >= 50) {
@@ -128,32 +152,8 @@ function gainBattery() {
 
 }
 
-//Enemy Movement
 
-function enemyMove() {
-
-    if (enemyMovement.position.x >= 100) {
-
-        enemyMovement.position.x = 0;
-
-        if (enemyStage == 3) {
-            console.log("Enemy Attacking");
-            if (doorClosed == true) {
-                enemyStage = 1;
-                setEnemySpeed()
-            } else {
-                endGame()
-            }
-
-        } else {
-            enemyStage = enemyStage + 1;
-            setEnemySpeed()
-        }
-
-    }
-}
-
-//Door Control
+//Controls
 
 function doorControl() {
 
@@ -163,7 +163,11 @@ function doorControl() {
         } else {
             if (kb.pressing('spacebar')) {
                 doorClosed = true;
+                console.log("Door closed")
             } else {
+                if (kb.released('spacebar')) {
+                    console.log("Door opened")
+                }
                 doorClosed = false;
             }
         }
@@ -173,13 +177,24 @@ function doorControl() {
 
 }
 
-//Stun Control
 
 function stunControl() {
-    if (stunCharging.position.x >= 25) {
+    if (stunCharging.position.x >= 100) {
         stunCharging.vel.x = 0;
         stunCharged = true;
     }
+
+    if (kb.pressed('backspace')) {
+        if (stunCharged == true) {
+            stunCharged = false;
+            stunCharging.vel.x = 0.01;
+            stunCharging.position.x = 0;
+            if (enemyStage >= 2) {
+                enemyMovement.position.x = 0;
+            }
+        }
+    }
+
 
 }
 
@@ -207,11 +222,15 @@ function draw() {
         text(enemyStage, 100, 100);
         text(doorClosed, 200, 200);
 
+        text("stun sprite" + stunCharging.position.x, 60, 90);
+
         drainBattery()
 
         gainBattery()
 
         doorControl()
+
+        stunControl()
 
         enemyMove()
 
