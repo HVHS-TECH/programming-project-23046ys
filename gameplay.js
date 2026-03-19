@@ -132,13 +132,13 @@ function gainBattery() {
                 gainingBattery = false;
 
             } else {
-                if (kb.pressed('down')) {
+                if (kb.pressed('up')) {
 
                     if (battery <= 40) {
                         gainingBattery = true;
                     }
 
-                } else if (kb.pressed('up')) {
+                } else if (kb.pressed('down')) {
 
                     gainingBattery = false;
 
@@ -219,10 +219,11 @@ function draw() {
         score = Math.round(timer.position.y);
         text("Score=" + score, 50, 50);
         text("Power=" + battery, 50, 75);
-        text(enemyStage, 100, 100);
-        text(doorClosed, 200, 200);
+        text("Enemy Stage="+enemyStage, 100, 100);
+        text("Door State:"+doorClosed, 200, 200);
 
-        text("stun sprite" + stunCharging.position.x, 60, 90);
+        text("stun charge=" + stunCharging.position.x, 60, 90);
+        text("Stun Ready:"+stunCharged,60,120)
 
         drainBattery()
 
