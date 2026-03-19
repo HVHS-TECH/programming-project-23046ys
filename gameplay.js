@@ -222,8 +222,8 @@ function draw() {
         text("Enemy Stage="+enemyStage, 100, 100);
         text("Door State:"+doorClosed, 200, 200);
 
-        text("stun charge=" + stunCharging.position.x, 60, 90);
-        text("Stun Ready:"+stunCharged,60,120)
+        text("stun charge=" + stunCharging.position.x, 60, 120);
+        text("Stun Ready:"+stunCharged,70,140)
 
         drainBattery()
 
