@@ -55,6 +55,7 @@ function setup() {
 
 function setEnemySpeed() {
 
+        //Increases enemy speed based on score
     if (score >= 100) {
         if (score <= 250) {
             enemySpeedArray[0] = 250 / 100;
@@ -64,7 +65,7 @@ function setEnemySpeed() {
             enemySpeedArray[1] = score / 50;
         }
     }
-
+        //Sets speed of enemy, speed is not randomised at stage 3
     if (enemyStage == 3) {
 
         if (doorClosed == true) {
@@ -81,7 +82,7 @@ function setEnemySpeed() {
 
 
 function enemyMove() {
-
+        //Changes enemies stage to the next one when a specific sprite is past a specific distance
     if (enemyMovement.position.x >= 100) {
 
         enemyMovement.position.x = 0;
@@ -114,7 +115,7 @@ function drainBattery() {
     } else {
         batteryDrain.vel.y = 0.01;
     }
-
+        //Subtracts a sprites position on the Y axis from 100 and rounds it to calculate how much battery is left.
     if (battery >= 1) {
         battery = Math.round(100 - batteryDrain.position.y);
     } else {
@@ -218,7 +219,7 @@ function draw() {
 
         score = Math.round(timer.position.y);
         text("Score=" + score, 50, 50);
-        text("Power=" + battery, 50, 75);
+        text("Battery Power=" + battery, 50, 75);
         text("Enemy Stage="+enemyStage, 100, 100);
         text("Door State:"+doorClosed, 200, 200);
 
