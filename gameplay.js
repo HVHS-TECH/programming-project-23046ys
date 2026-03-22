@@ -180,7 +180,7 @@ function doorControl() {
 
 
 function stunControl() {
-    if (stunCharging.position.x >= 100) {
+    if (stunCharging.position.x >= 50) {
         stunCharging.vel.x = 0;
         stunCharged = true;
     }
