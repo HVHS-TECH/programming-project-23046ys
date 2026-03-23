@@ -36,7 +36,7 @@ var enemyLeaveSpeed = 1;
 
 function setup() {
     console.log("setup: ");
-    cnv = new Canvas(windowWidth, windowHeight);
+    cnv = new Canvas(1920, 911);
 
     timer = new Sprite(-20, 0, 10, 10);
     timer.vel.y = TIMER_SPEED;
@@ -49,6 +49,8 @@ function setup() {
 
     stunCharging = new Sprite(0, -20, 10, 10)
     stunCharging.vel.x = 0.01;
+
+    doorSprite = new Sprite(1920/2,350,400,300)
 }
 
 //Enemy
@@ -225,7 +227,7 @@ function draw() {
 
         text("stun charge=" + stunCharging.position.x, 60, 120);
         text("Stun Ready:"+stunCharged,70,140)
-
+        
         drainBattery()
 
         gainBattery()
