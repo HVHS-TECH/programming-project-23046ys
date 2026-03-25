@@ -235,6 +235,7 @@ function draw() {
         text("Score=" + score, 50, 50);
         text("Battery Power=" + battery, 50, 75);
         text("Enemy Stage="+enemyStage, 100, 100);
+        text(enemyMovement.position.x,100,110)
         text("Door State:"+doorClosed, 200, 200);
 
         text("stun charge=" + stunCharging.position.x, 60, 120);
@@ -253,6 +254,12 @@ function draw() {
     } else {
         text("Game Over", windowWidth / 2, windowHeight / 2);
         text("Score=" + score, windowWidth / 2, windowHeight / 2 + 50);
+        if(Mouse.pressed()){
+            if(mouseX < 1920/2)
+            location.href="html/gameplay.html";
+        }else{
+            location.href="index.html";
+        }
     }
 
 
