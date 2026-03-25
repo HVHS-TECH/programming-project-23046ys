@@ -178,6 +178,18 @@ function doorControl() {
         doorClosed = false;
     }
 
+    if(doorClosed == true){
+            if(doorSprite.position.y < 350 ){ 
+                doorSprite.moveTo(1920/2,350, 15)
+            }
+    }
+    
+    if(doorClosed == false){
+            if(doorSprite.position.y > 350-280 ){ 
+                doorSprite.moveTo(1920/2,350-280, 6.5)
+            }
+    }
+
 }
 
 
