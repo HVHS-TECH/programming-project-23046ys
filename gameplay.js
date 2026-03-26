@@ -45,7 +45,7 @@ function setup() {
     batteryDrain.vel.y = 0.01;
 
     enemyMovement = new Sprite(0, -20, 10, 10);
-    enemyMovement.vel.x = 0.5;
+    enemyMovement.moveTo(-100,-20,0.5)
 
     stunCharging = new Sprite(0, -20, 10, 10)
     stunCharging.vel.x = 0.01;
@@ -71,13 +71,13 @@ function setEnemySpeed() {
     if (enemyStage == 3) {
 
         if (doorClosed == true) {
-            enemyMovement.vel.x = enemyLeaveSpeed;
+            enemyMovement.moveTo(-100,-20, enemyLeaveSpeed)
         } else {
-            enemyMovement.vel.x = enemyAttackSpeed;
+            enemyMovement.moveTo(-100,-20,enemyAttackSpeed)
         }
 
     } else {
-        enemyMovement.vel.x = random(enemySpeedArray[0], enemySpeedArray[1]) / 10;
+        enemyMovement.moveTo(-100,-20, random(enemySpeedArray[0], enemySpeedArray[1]) / 10)
     }
 }
 
@@ -85,7 +85,7 @@ function setEnemySpeed() {
 
 function enemyMove() {
         //Changes enemies stage to the next one when a specific sprite is past a specific distance
-    if (enemyMovement.position.x >= 100) {
+    if (enemyMovement.position.x <= -100) {
 
         enemyMovement.position.x = 0;
 
@@ -123,6 +123,8 @@ function drainBattery() {
     } else {
         battery = 0;
     }
+
+    
 
 }
 
@@ -218,6 +220,9 @@ function stunControl() {
 function endGame() {
     timer.vel.y = 0;
     enemyMovement.vel.x = 0;
+    batteryDrain.vel.y = 0;
+    stunCharging.vel.x = 0;
+    remove(doorSprite);
     gameEnded = true;
     console.log("Game Ended");
 }
@@ -251,15 +256,16 @@ function draw() {
 
         enemyMove()
 
+        for (i = 0; i < enemyStage; i++){
+        rect(10 * i, 100, 10, 20);
+    }
+
+       
     } else {
         text("Game Over", windowWidth / 2, windowHeight / 2);
         text("Score=" + score, windowWidth / 2, windowHeight / 2 + 50);
-        if(Mouse.pressed()){
-            if(mouseX < 1920/2)
-            location.href="html/gameplay.html";
-        }else{
-            location.href="index.html";
-        }
+        
+        
     }
 
 
