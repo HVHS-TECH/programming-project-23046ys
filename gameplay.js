@@ -222,9 +222,7 @@ function endGame() {
     enemyMovement.vel.x = 0;
     batteryDrain.vel.y = 0;
     stunCharging.vel.x = 0;
-    remove(doorSprite);
     gameEnded = true;
-    console.log("Game Ended");
 }
 
 /*******************************************************/
@@ -256,7 +254,7 @@ function draw() {
 
         enemyMove()
 
-        for (i = 0; i < enemyStage; i++){
+        for (i = 1; i < enemyStage; i++){
         rect(10 * i, 100, 10, 20);
     }
 
