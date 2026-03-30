@@ -84,7 +84,7 @@ function setEnemySpeed() {
 
 
 function enemyMove() {
-        //Changes enemies stage to the next one when a specific sprite is past a specific distance
+        //Changes enemies stage to the next one when the corresponding sprite is past a specific distance
     if (enemyMovement.position.x <= -100) {
 
         enemyMovement.position.x = 0;
@@ -117,7 +117,7 @@ function drainBattery() {
     } else {
         batteryDrain.vel.y = 0.01;
     }
-        //Subtracts a sprites position on the Y axis from 100 and rounds it to calculate how much battery is left.
+        //Changes the battery's value based on corresponding sprites position
     if (battery >= 1) {
         battery = Math.round(100 - batteryDrain.position.y);
     } else {
@@ -151,7 +151,7 @@ function gainBattery() {
             }
         }
     }
-    if (battery >= 80) {
+    if (battery >= 100) {
         gainingBattery = false;
     }
 
